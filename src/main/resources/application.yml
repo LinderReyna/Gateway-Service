@@ -1,0 +1,50 @@
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.uuid}
+server:
+  port: 8080
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: customer-microservice
+          uri: lb://CUSTOMER-MICROSERVICE
+          predicates:
+            - Path=/api/microservice/1.0.0/customer/**
+        - id: product-microservice
+          uri: lb://PRODUCT-MICROSERVICE
+          predicates:
+            - Path=/api/microservice/1.0.0/product/**
+        - id: account-microservice
+          uri: lb://ACCOUNT-MICROSERVICE
+          predicates:
+            - Path=/api/microservice/1.0.0/account/**
+        - id: movement-microservice
+          uri: lb://MOVEMENT-MICROSERVICE
+          predicates:
+            - Path=/api/microservice/1.0.0/movement/**
+        - id: transaction-microservice
+          uri: lb://TRANSACTION-MICROSERVICE
+          predicates:
+            - Path=/api/microservice/1.0.0/transaction/**
+        - id: card-microservice
+          uri: lb://CARD-MICROSERVICE
+          predicates:
+            - Path=/api/microservice/1.0.0/card/**
+        - id: consumption-microservice
+          uri: lb://CONSUMPTION-MICROSERVICE
+          predicates:
+            - Path=/api/microservice/1.0.0/consumption/**
+        - id: payment-microservice
+          uri: lb://PAYMENT-MICROSERVICE
+          predicates:
+            - Path=/api/microservice/1.0.0/payment/**
+      discovery:
+        locator:
+          enabled: true
+    loadbalancer:
+      ribbon:
+        enabled: false
+
